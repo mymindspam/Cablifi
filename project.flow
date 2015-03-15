@@ -1,0 +1,32 @@
+{
+	luxe: {
+    	window:{
+    		width: 640,
+      		height: 480,
+      		resizable: false,
+      		title: 'Cablify'
+    	}
+  	},
+
+  	project : {
+	    name : 'Cablifi',
+	    version : '1',
+	    author : 'Dohxis',
+
+	    app : {
+		    name : 'Cablify',
+		    package : 'com.dohxis.cablifi'
+	    },
+
+	    build : {
+	    	dependencies : {
+	    	luxe : '*',
+	    	}
+		},
+
+	    files : {
+	      	assets: 'assets/',
+	      	index: { path:'custom_index.html => index.html', template:'project', not_listed:true }
+	    }
+  }
+}
