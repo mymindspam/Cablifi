@@ -1,5 +1,6 @@
 {
 	"textures": [
-		{"id" : "assets/cubePlayer.png"}
+		{"id" : "assets/playerCube.png"},
+		{"id" : "assets/wall.png"}
 	]
 }

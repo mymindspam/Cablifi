@@ -1,18 +1,22 @@
+package states;
+
 import luxe.States;
 import luxe.Sprite;
 import luxe.Vector;
 
 import phoenix.Texture;
 import luxe.Input;
+import luxe.importers.tiled.TiledMap;
 
 class Game extends State {
 
 	var player: Sprite;
 	var image: Texture;
+	var map: TiledMap;
 
 	var speed: Float = 300;
-	var maxLeft: Float = 0;
-	var maxRight: Float = 0; 
+	var tileX: Float = 16;
+	var tileY: Float = 16;
 	
 	public function new() {
 
@@ -27,26 +31,24 @@ class Game extends State {
 	function loadScene(){
 
 		Luxe.renderer.clear_color.rgb(0x7f8c8d);
-
-		// TODO: Map
-
+		map = new TiledMap({ file: "assets/map1.json", format: "json", pos: new Vector(0, 0) });
+		map.display({ scale: 1, grid: false, filter: FilterType.nearest });
 	} // loadScene
 
 	function loadPlayer(){
 
-		var image = Luxe.loadTexture("assets/cubePlayer.png");
+		var image = Luxe.loadTexture("assets/playerCube.png");
 		image.filter = FilterType.nearest;
 
 		var width = 16;
 		var height = 16;
 
-		maxRight = Luxe.screen.w - (width / 2);
-		maxLeft = (width / 2);
-
 		player  = new Sprite({
 			name: "player",
 			texture: image,
-			pos: new Vector(Luxe.screen.mid.x, Luxe.screen.h - (height / 2)),
+			// 640 / 16 = 40
+			// 480 / 16 = 30
+			pos: new Vector(Luxe.screen.w - (35 * tileX), Luxe.screen.h - (5 * tileY)),
 			size: new Vector(width, height)
 		});
 
@@ -62,9 +64,7 @@ class Game extends State {
 
 		Luxe.input.bind_key('up', Key.up);
 		Luxe.input.bind_key('up', Key.key_w);
-
-		Luxe.input.bind_key('down', Key.down);
-		Luxe.input.bind_key('down', Key.key_s);
+		Luxe.input.bind_key('up', Key.space);
 
 	} // loadPlayerInput
 
@@ -90,11 +90,7 @@ class Game extends State {
 			player.pos.y -= speed * dt;
 			moving = true;
 		}
-
-		if(Luxe.input.inputdown('down')){
-			player.pos.y += speed * dt;
-			moving = true;
-		}
+		
 	} // update
 
 	override function onkeyup( e:KeyEvent ) {
