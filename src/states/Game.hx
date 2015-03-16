@@ -8,13 +8,15 @@ import phoenix.Texture;
 import luxe.Input;
 import luxe.importers.tiled.TiledMap;
 
+import components.*;
+
 class Game extends State {
 
 	var player: Sprite;
 	var image: Texture;
 	var map: TiledMap;
+	var movement: Movement;
 
-	var speed: Float = 300;
 	var tileX: Float = 16;
 	var tileY: Float = 16;
 	
@@ -24,7 +26,6 @@ class Game extends State {
 
 		loadScene();
 		loadPlayer();
-		loadPlayerInput();
 
 	} // new
 
@@ -48,48 +49,18 @@ class Game extends State {
 			texture: image,
 			// 640 / 16 = 40
 			// 480 / 16 = 30
-			pos: new Vector(Luxe.screen.w - (35 * tileX), Luxe.screen.h - (5 * tileY)),
+			pos: new Vector(Luxe.screen.w - (30 * tileX), Luxe.screen.h - (10 * tileY)),
 			size: new Vector(width, height)
 		});
 
+		movement = new Movement({ name: "movement" });
+		player.add(movement);
+
 	} // loadPlayer
-
-	function loadPlayerInput(){
-
-		Luxe.input.bind_key('left', Key.left);
-		Luxe.input.bind_key('left', Key.key_a);
-
-		Luxe.input.bind_key('right', Key.right);
-		Luxe.input.bind_key('right', Key.key_d);
-
-		Luxe.input.bind_key('up', Key.up);
-		Luxe.input.bind_key('up', Key.key_w);
-		Luxe.input.bind_key('up', Key.space);
-
-	} // loadPlayerInput
 
 	override function update(dt:Float) {
 
-		if(player == null){
-			return;
-		}
 
-		var moving  = false;
-
-		if(Luxe.input.inputdown('left')){
-			player.pos.x -= speed * dt;
-			moving = true;
-		}
-
-		if(Luxe.input.inputdown('right')){
-			player.pos.x += speed * dt;
-			moving = true;
-		}
-
-		if(Luxe.input.inputdown('up')){
-			player.pos.y -= speed * dt;
-			moving = true;
-		}
 		
 	} // update
 
