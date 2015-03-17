@@ -4,6 +4,11 @@ import luxe.Component;
 import luxe.Sprite;
 import luxe.Input;
 
+/* 
+ * @author Dohxis
+ *
+*/
+
 class Movement extends Component {
 
 	// Variables 
@@ -50,7 +55,7 @@ class Movement extends Component {
 		player.pos.y += velocity * deltaTime;
 		velocity += gravity * 10 * deltaTime;
 
-		state = "idle"; // Keep plater's state as IDLE if not pressing any key
+		state = "idle"; // Keep player's state as IDLE if not pressing any key
 
 	}
 

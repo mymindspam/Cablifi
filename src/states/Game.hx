@@ -9,8 +9,6 @@ import luxe.Input;
 import luxe.importers.tiled.TiledMap;
 
 import components.*;
-import luxe.collision.CollisionData;
-import luxe.collision.Collision;
 
 class Game extends State {
 
@@ -18,7 +16,7 @@ class Game extends State {
 	var image: Texture;
 	var map: TiledMap;
 	var movement: Movement;
-	var collider: CollisionData;
+	var collision: Collision;
 
 	var tileX: Float = 16;
 	var tileY: Float = 16;
@@ -57,16 +55,14 @@ class Game extends State {
 		});
 
 		movement = new Movement({ name: "movement" });
+		collision = new Collision({ name: "collision" });
+		
 		player.add(movement);
+		player.add(collision);
 
 	} // loadPlayer
 
 	override function update(dt:Float) {
-
-		/*collider = Collision.test(player, map);
-		if(collider != null){
-			trace("collision");
-		}*/
 		
 	} // update
 
