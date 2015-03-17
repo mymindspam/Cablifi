@@ -35,6 +35,7 @@ class Game extends State {
 		Luxe.renderer.clear_color.rgb(0x7f8c8d);
 		map = new TiledMap({ file: "assets/map1.json", format: "json", pos: new Vector(0, 0) });
 		map.display({ scale: 1, grid: false, filter: FilterType.nearest });
+
 	} // loadScene
 
 	function loadPlayer(){
@@ -63,6 +64,8 @@ class Game extends State {
 	} // loadPlayer
 
 	override function update(dt:Float) {
+
+		collision.setCollision(player.pos.x, player.pos.y, tileX, tileY);
 		
 	} // update
 
