@@ -6,54 +6,55 @@ import luxe.Input;
 
 class Movement extends Component {
 
-	var sprite: Sprite;
-	var velocityX: Float; 
-	var velocityY: Float; 
-	var speedPerPixel: Int = 50;
-	var gravity: Float = 500;
+	// Variables 
+	var player 		: Sprite;
+	var state		: String;
+	var velocity 	: Float;
+	var speed 		: Float;
+	var gravity		: Float;
 
 	override function init(){
-		
-		sprite = cast entity;
-		loadPlayerInput();
+
+		player = cast entity;
+		bindKeys();
+
+		// set default variables
+		state = "idle";
+		speed = 1.1;
+		gravity = 9.3;
 
 	} // init
 
-	override function update(dt:Float){
-
-		if(sprite == null){
-			return;
-		}
-
-		var moving  = false;
-		var jumping = false;
+	override function update(deltaTime:Float){
 
 		if(Luxe.input.inputdown('left')){
-			sprite.pos.x -= speedPerPixel * dt;
-			moving = true;
+			player.pos.x -= speed * 100 * deltaTime;
+			state = "moving";
 		}
 
 		if(Luxe.input.inputdown('right')){
-			sprite.pos.x += speedPerPixel * dt;
-			moving = true;
+			player.pos.x += speed * 100 * deltaTime;
+			state = "moving";
 		}
 
 		if(Luxe.input.inputpressed('up')){
-			velocityY = -124;
-			jumping = true;
+			velocity = (-1 * (speed * 100));
+			state = "jumping";
 		}
 
 		if(Luxe.input.inputreleased('up')){
-			if(velocityY < -64) velocityY = -64;
+			if(velocity < (-1 * ((speed * 100) / 2))) velocity = (-1 * ((speed * 100) / 2));
 		}
 
-		sprite.pos.x += velocityX * dt;
-		sprite.pos.y += velocityY * dt;
-		velocityY += gravity * dt;
+		// Pull player down every frame
+		player.pos.y += velocity * deltaTime;
+		velocity += gravity * 10 * deltaTime;
 
-	} // update
+		state = "idle"; // Keep plater's state as IDLE if not pressing any key
 
-	function loadPlayerInput(){
+	}
+
+	function bindKeys(){
 
 		Luxe.input.bind_key('left', Key.left);
 		Luxe.input.bind_key('left', Key.key_a);
@@ -65,6 +66,18 @@ class Movement extends Component {
 		Luxe.input.bind_key('up', Key.key_w);
 		Luxe.input.bind_key('up', Key.space);
 
-	} // loadPlayerInput
+	} // bindKeys
+
+	public function getState(){
+		return state;
+	} // getState
+
+	public function getVelocity(){
+		return velocity;
+	} // getVelocity
+
+	public function getSpeed(){
+		return speed;
+	} // getSpeed
 
 }

@@ -2,5 +2,9 @@
 	"textures": [
 		{"id" : "assets/playerCube.png"},
 		{"id" : "assets/wall.png"}
+	],
+
+	"json": [
+		{"id": "assets/map1.json"}
 	]
 }

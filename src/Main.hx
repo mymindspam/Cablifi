@@ -1,7 +1,6 @@
 import luxe.States;
 import luxe.Parcel;
 import luxe.ParcelProgress;
-
 import luxe.Color;
 import states.Game;
 

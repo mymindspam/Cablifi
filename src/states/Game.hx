@@ -9,6 +9,8 @@ import luxe.Input;
 import luxe.importers.tiled.TiledMap;
 
 import components.*;
+import luxe.collision.CollisionData;
+import luxe.collision.Collision;
 
 class Game extends State {
 
@@ -16,6 +18,7 @@ class Game extends State {
 	var image: Texture;
 	var map: TiledMap;
 	var movement: Movement;
+	var collider: CollisionData;
 
 	var tileX: Float = 16;
 	var tileY: Float = 16;
@@ -49,7 +52,7 @@ class Game extends State {
 			texture: image,
 			// 640 / 16 = 40
 			// 480 / 16 = 30
-			pos: new Vector(Luxe.screen.w - (30 * tileX), Luxe.screen.h - (10 * tileY)),
+			pos: new Vector(Luxe.screen.w - (30 * tileX), Luxe.screen.h - (20 * tileY)),
 			size: new Vector(width, height)
 		});
 
@@ -60,7 +63,10 @@ class Game extends State {
 
 	override function update(dt:Float) {
 
-
+		/*collider = Collision.test(player, map);
+		if(collider != null){
+			trace("collision");
+		}*/
 		
 	} // update
 
