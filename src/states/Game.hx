@@ -59,7 +59,7 @@ class Game extends State {
 		collision = new Collision({ name: "collision" });
 		
 		player.add(movement);
-		player.add(collision);
+		player.add(collision); // only draws some rectangles
 
 	} // loadPlayer
 
