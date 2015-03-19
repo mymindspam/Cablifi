@@ -12,6 +12,7 @@ import components.*;
 import luxe.collision.shapes.Polygon;
 import luxe.collision.ShapeDrawerLuxe;
 
+import luxe.Rectangle;
 import luxe.Color;
 
 class Game extends State {
@@ -63,12 +64,11 @@ class Game extends State {
 		});
 
 		movement = new Movement({ name: "movement" });
-		collision = new Collision({ name: "collision" });
 		
 		player.add(movement);
 		player.add(new Collision({
 			name: 'collider',
-			hitbox: new Rectangle(player.pos.x, player.pos.y, tileX, tileY);
+			hitbox: new Rectangle(player.pos.x, player.pos.y, tileX, tileY)
 		}));
 
 	} // loadPlayer

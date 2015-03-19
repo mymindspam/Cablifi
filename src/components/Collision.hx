@@ -37,7 +37,7 @@ class Collision extends Component {
 		super(options);
 		position = new Vector(options.hitbox.x, options.hitbox.y);
 		box = Polygon.rectangle(options.hitbox.x, options.hitbox.y, options.hitbox.w, options.hitbox.h);
-		drawer = new ShapeDrawerLuxe;
+		drawer = new ShapeDrawerLuxe();
 
 	} // new
 
