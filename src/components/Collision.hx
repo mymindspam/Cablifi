@@ -4,68 +4,47 @@ import luxe.Component;
 import luxe.Vector;
 import luxe.Color;
 
+import luxe.Rectangle;
 import luxe.collision.shapes.Polygon;
 import luxe.collision.CollisionData;
+
 import luxe.collision.Collision;
+import luxe.collision.shapes.Shape;
+import luxe.collision.shapes.Circle;
 
 import luxe.collision.ShapeDrawerLuxe;
-import luxe.Sprite;
+import luxe.Entity;
 
 /*
  * @author Dohxis
  *
 */
 
+typedef Options = {
+	> luxe.options.ComponentOptions,
+	var hitbox: Rectangle;
+}
+
 class Collision extends Component {
 
 	// Variables
 	var drawer		: ShapeDrawerLuxe;
-	var color 		: Int;
-	var box			: Polygon;
 	var position	: Vector;
-	var collide		: CollisionData;
-	var coordX		: Float;
-	var coordY		: Float;
-	var sizeX		: Float;
-	var sizeY		: Float;
-	var object		: Sprite;
+	var box			: Shape;
 
-	override function init(){
+	override public function new(options:Options){
 
-		object = cast entity;
-		drawer = new ShapeDrawerLuxe();
-		position = new Vector();
-		box = Polygon.rectangle(coordY, coordX, sizeX, sizeY);
+		super(options);
+		position = new Vector(options.hitbox.x, options.hitbox.y);
+		box = Polygon.rectangle(options.hitbox.x, options.hitbox.y, options.hitbox.w, options.hitbox.h);
+		drawer = new ShapeDrawerLuxe;
 
-	} // init
-
-	public function setCollision(cX:Float, cY:Float, sX: Float, sY: Float){
-
-		coordX = cX;
-		coordY = cY;
-
-		sizeX = sX;
-		sizeY = sY;
-
-	} // setCollision
-
-	public function testCollision( testOn:Polygon ){
-
-		collide = luxe.collision.Collision.test(box, testOn);
-
-		if(collide != null){
-			trace("Collsion detected!");
-		}
-
-	} // testCollision
+	} // new
 
 	override function update(deltaTime:Float){
 
-		// update coordinates
-		box.x = coordX;
-		box.y = coordY;
-
-		drawer.drawPolygon(box, new Color().rgb(0xf94b04), true);
+		box.position = entity.pos;
+		drawer.drawPolygon(cast box, new Color().rgb(0xf94b04), true);
 
 	} // update
 

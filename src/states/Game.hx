@@ -20,7 +20,6 @@ class Game extends State {
 	var image: Texture;
 	var map: TiledMap;
 	var movement: Movement;
-	var collision: Collision;
 	var ground: Polygon;
 	var drawer: ShapeDrawerLuxe; 
 
@@ -67,14 +66,16 @@ class Game extends State {
 		collision = new Collision({ name: "collision" });
 		
 		player.add(movement);
-		player.add(collision);
+		player.add(new Collision({
+			name: 'collider',
+			hitbox: new Rectangle(player.pos.x, player.pos.y, tileX, tileY);
+		}));
 
 	} // loadPlayer
 
 	override function update(dt:Float) {
 
-		collision.setCollision(player.pos.x, player.pos.y, tileX, tileY);
-		//collision.testCollision(ground);
+		
 
 		//drawer.drawPolygon(ground, new Color().rgb(0xf94b04), true);
 		
