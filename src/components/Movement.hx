@@ -55,8 +55,6 @@ class Movement extends Component {
 		player.pos.y += velocity * deltaTime;
 		velocity += gravity * 10 * deltaTime;
 
-		state = "idle"; // Keep player's state as IDLE if not pressing any key
-
 	}
 
 	function bindKeys(){
