@@ -9,6 +9,10 @@ import luxe.Input;
 import luxe.importers.tiled.TiledMap;
 
 import components.*;
+import luxe.collision.shapes.Polygon;
+import luxe.collision.ShapeDrawerLuxe;
+
+import luxe.Color;
 
 class Game extends State {
 
@@ -17,6 +21,8 @@ class Game extends State {
 	var map: TiledMap;
 	var movement: Movement;
 	var collision: Collision;
+	var ground: Polygon;
+	var drawer: ShapeDrawerLuxe; 
 
 	var tileX: Float = 16;
 	var tileY: Float = 16;
@@ -33,8 +39,10 @@ class Game extends State {
 	function loadScene(){
 
 		Luxe.renderer.clear_color.rgb(0x7f8c8d);
+		drawer = new ShapeDrawerLuxe();
 		map = new TiledMap({ file: "assets/map1.json", format: "json", pos: new Vector(0, 0) });
 		map.display({ scale: 1, grid: false, filter: FilterType.nearest });
+		ground = Polygon.create(100, 100, 4, 50);
 
 	} // loadScene
 
@@ -59,13 +67,16 @@ class Game extends State {
 		collision = new Collision({ name: "collision" });
 		
 		player.add(movement);
-		player.add(collision); // only draws some rectangles
+		player.add(collision);
 
 	} // loadPlayer
 
 	override function update(dt:Float) {
 
 		collision.setCollision(player.pos.x, player.pos.y, tileX, tileY);
+		//collision.testCollision(ground);
+
+		//drawer.drawPolygon(ground, new Color().rgb(0xf94b04), true);
 		
 	} // update
 

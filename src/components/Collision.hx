@@ -49,6 +49,16 @@ class Collision extends Component {
 
 	} // setCollision
 
+	public function testCollision( testOn:Polygon ){
+
+		collide = luxe.collision.Collision.test(box, testOn);
+
+		if(collide != null){
+			trace("Collsion detected!");
+		}
+
+	} // testCollision
+
 	override function update(deltaTime:Float){
 
 		// update coordinates
